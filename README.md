@@ -21,6 +21,6 @@ Using
 ------------
 
 To run application use the following command in the command line inside the application folder.
-```command line
+```php
     php App.php
 ```
