@@ -2,15 +2,35 @@
     require_once('MyPDO.php');
 
     class App{
+        /**
+         * @const string
+         */
         const EMAIL_ROW_MASK = "Email address: %s \n";
+        /**
+         * @const string
+         */
         const TABLE_ROW_MASK = "| %-10.10s | %6.6s |\n";
 
+        /**
+         * @var MyPDO
+         */
         private $dbh;
 
+        /**
+         * Create a new App instance.
+         *
+         * @return App
+         */
         public function __construct(){
             $this->dbh = new MyPDO();
         }
 
+        /**
+         * Get the amounts for the specified email address
+         *
+         * @param  string  $email
+         * @return PDOStatement
+         */
         private function getAmountsByEmail($email){
             $sth = $this->dbh->prepare('
                 SELECT s.day, SUM(s.amount) AS amount FROM user AS u
@@ -26,6 +46,12 @@
             return $sth;
         }
 
+        /**
+         * List the amount of banner ads for the specified user by email address
+         *
+         * @param  string  $email
+         * @return void
+         */
         public function drawList($email){
             $sth = $this->getAmountsByEmail($email);
 
